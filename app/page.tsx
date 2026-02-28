@@ -8,7 +8,8 @@ export default function Home() {
         <NavBar />
       </div>
       <Hero />
-      <section className="w-full h-screen"></section>
+      <section id="section-2" className="w-full h-screen"></section>
+      {/* <section id="section-3" className="w-full h-screen"></section> */}
     </>
   );
 }

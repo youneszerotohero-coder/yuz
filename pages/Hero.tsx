@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useState } from 'react';
 import MotionCard from "@/components/MotionCard"
 import SplitText from "@/components/SplitText"
 import { Button } from "@/components/ui/button";
@@ -13,6 +15,19 @@ const data = [
 ];
 
 const Hero = () => {
+  const [isFixed, setIsFixed] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Once we scroll past the first section (100vh), stop being fixed
+      setIsFixed(window.scrollY < window.innerHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // initial check
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section className='relative w-full h-screen mx-auto flex flex-col
     justify-around items-center'>
@@ -29,13 +44,22 @@ const Hero = () => {
         rootMargin="-100px"
         textAlign="center"
       />
-      <div className="relative flex justify-center 
-        items-center overflow-visible bg-black"
-        style={{ animation: 'card-slide 2.5s ease-in-out forwards' }}>
-        {data.map((item, index) => (
-          <MotionCard key={index} index={index} total={data.length} url={item.url} />
-        ))}
+
+      {/* Cards Container toggles from fixed center to absolute at 150vh */}
+      <div
+        className={isFixed
+          ? "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+          : "absolute top-[150vh] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"}
+      >
+        <div className="relative flex justify-center 
+          items-center right-0 bottom-0"
+          style={{ animation: 'card-slide 2.5s ease-in-out forwards' }}>
+          {data.map((item, index) => (
+            <MotionCard key={index} index={index} total={data.length} url={item.url} />
+          ))}
+        </div>
       </div>
+
       <div className='flex flex-col items-center gap-5'>
         <h3
           style={{ animation: 'fade-in-up 3.4s ease-out forwards' }}
