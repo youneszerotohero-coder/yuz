@@ -114,6 +114,10 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -121,6 +125,7 @@
 
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
   }
 }
 
@@ -189,6 +194,110 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes scroll-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.97);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes scroll-reveal-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-reveal-right {
+  0% {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.scroll-reveal {
+  opacity: 0;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.visible {
+  animation-name: scroll-reveal;
+  animation-duration: 0.9s;
+}
+
+.scroll-reveal-left {
+  opacity: 0;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal-left.visible {
+  animation-name: scroll-reveal-left;
+  animation-duration: 0.9s;
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal-right.visible {
+  animation-name: scroll-reveal-right;
+  animation-duration: 0.9s;
+}
+
+.scale-in {
+  opacity: 0;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scale-in.visible {
+  animation-name: scale-in;
+  animation-duration: 0.8s;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

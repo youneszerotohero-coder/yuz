@@ -30,10 +30,10 @@ const Hero = () => {
 
   return (
     <section className='relative w-full h-screen mx-auto flex flex-col
-    justify-around items-center'>
+    justify-around items-center gap-0 md:gap-20'>
       <SplitText
         text="  HELLO YOU!, WELCOME TO MY PORTFOLIO"
-        className="text-5xl w-[15em] font-semibold text-center mt-10"
+        className="text-3xl md:text-5xl w-[90%] md:w-[15em] font-bold tracking-tighter text-center mt-6 md:mt-10"
         delay={50}
         duration={2.5}
         ease="power3.out"
@@ -48,11 +48,11 @@ const Hero = () => {
       {/* Cards Container toggles from fixed center to absolute at 150vh */}
       <div
         className={isFixed
-          ? "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+          ? "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 mt-0 md:mt-5"
           : "absolute top-[150vh] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"}
       >
         <div className="relative flex justify-center 
-          items-center right-0 bottom-0"
+          items-center"
           style={{ animation: 'card-slide 2.5s ease-in-out forwards' }}>
           {data.map((item, index) => (
             <MotionCard key={index} index={index} total={data.length} url={item.url} />
@@ -60,18 +60,19 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className='flex flex-col items-center gap-5'>
+      <div className='flex flex-col items-center gap-4 md:gap-5 px-4 text-center'>
         <h3
+          className="text-sm md:text-base"
           style={{ animation: 'fade-in-up 3.4s ease-out forwards' }}
         >
           I am Yuzusii - a mixed-media specialist based out of Algeria.
         </h3>
         <Button
-          className='rounded-full hover:scale-110 transition-all duration-300 ease-in-out '
+          className='rounded-full hover:scale-110 transition-all duration-300 ease-in-out px-4 md:px-6'
           style={{ animation: 'fade-in-up 3.8s ease-out forwards' }}
         >
           <img src="/yuz.jpg" alt="yuz"
-            className="w-6 h-6 rounded-full object-cover" />
+            className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover" />
           Contact me
         </Button>
       </div>
