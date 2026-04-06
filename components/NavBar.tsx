@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { Menu, X, Youtube, Instagram } from "lucide-react"
+import Link from "next/link"
 
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg
@@ -30,10 +31,12 @@ const NavBar = () => {
       {/* Top Bar (always visible) */}
       <div className="w-full flex justify-between items-center p-2 h-[42px] shrink-0 relative z-20">
         <div className="flex-[1] flex justify-start">
-          <h1 className="flex items-center gap-2 pl-2">
-            <img src="/yuz.jpg" alt="yuz" className="w-6 h-6 rounded-full object-cover" />
-            Yuzusii
-          </h1>
+          <Link href="/" onClick={() => setIsOpen(false)}>
+            <h1 className="flex items-center gap-2 pl-2 cursor-pointer">
+              <img src="/yuz.jpg" alt="yuz" className="w-6 h-6 rounded-full object-cover" />
+              Yuzusii
+            </h1>
+          </Link>
         </div>
 
         <div className="flex-[1] flex justify-end gap-2 pr-2">
@@ -64,26 +67,26 @@ const NavBar = () => {
         <div className="flex-none md:flex-[1.2] flex flex-col gap-4 bg-white/10 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
           <h3 className="text-gray-300 text-[10px] tracking-widest uppercase font-semibold">My Services</h3>
           <ul className="flex flex-col gap-3 md:gap-5 mt-2">
-            <li className="text-lg md:text-2xl font-light cursor-pointer hover:text-white transition-colors drop-shadow-sm">Video Editing</li>
-            <li className="text-lg md:text-2xl font-light flex items-center gap-3 cursor-pointer hover:text-white transition-colors drop-shadow-sm">
+            <Link href="/#section-3" onClick={() => setIsOpen(false)}><li className="text-lg md:text-2xl font-light cursor-pointer hover:text-white transition-colors drop-shadow-sm">Video Editing</li></Link>
+            <Link href="/#section-3" onClick={() => setIsOpen(false)}><li className="text-lg md:text-2xl font-light flex items-center gap-3 cursor-pointer hover:text-white transition-colors drop-shadow-sm">
               Motion Graphics
               <span className="bg-[#5a2ab3] text-[9px] px-1.5 py-0.5 rounded text-white font-semibold uppercase tracking-wider">Top</span>
-            </li>
-            <li className="text-lg md:text-2xl font-med cursor-pointer hover:text-white transition-colors drop-shadow-sm">Color Grading</li>
-            <li className="text-lg md:text-2xl font-light cursor-pointer hover:text-white transition-colors drop-shadow-sm">Sound Design</li>
+            </li></Link>
+            <Link href="/#section-3" onClick={() => setIsOpen(false)}><li className="text-lg md:text-2xl font-med cursor-pointer hover:text-white transition-colors drop-shadow-sm">Color Grading</li></Link>
+            <Link href="/#section-3" onClick={() => setIsOpen(false)}><li className="text-lg md:text-2xl font-light cursor-pointer hover:text-white transition-colors drop-shadow-sm">Sound Design</li></Link>
           </ul>
-          <div className="mt-auto pt-6 flex items-center gap-3 text-sm cursor-pointer text-white font-medium hover:text-white transition-colors drop-shadow-sm">
+          <Link href="/#section-3" onClick={() => setIsOpen(false)} className="mt-auto pt-6 flex items-center gap-3 text-sm cursor-pointer text-white font-medium hover:text-white transition-colors drop-shadow-sm">
             VFX <span className="bg-white/20 text-[9px] px-1.5 py-0.5 rounded text-white font-semibold uppercase tracking-wider">Pro</span>
-          </div>
+          </Link>
         </div>
 
         {/* Middle Column: Explore */}
         <div className="flex-none md:flex-1 flex flex-col gap-4 p-6">
           <h3 className="text-white text-[10px] tracking-widest uppercase font-semibold">Explore</h3>
           <ul className="flex flex-col gap-3 md:gap-4 mt-2 text-black">
-            <li className="text-white md:text-lg font-light hover:text-gray-700 transition-colors cursor-pointer drop-shadow-sm">Portfolio Reel</li>
-            <li className="text-white md:text-lg font-light hover:text-gray-700 transition-colors cursor-pointer drop-shadow-sm">Case Studies</li>
-            <li className="text-white md:text-lg font-light hover:text-gray-700 transition-colors cursor-pointer drop-shadow-sm">Contact Me</li>
+            <Link href="/#section-2" onClick={() => setIsOpen(false)}><li className="text-white md:text-lg font-light hover:text-gray-700 transition-colors cursor-pointer drop-shadow-sm">Portfolio Reel</li></Link>
+            <Link href="/#section-4" onClick={() => setIsOpen(false)}><li className="text-white md:text-lg font-light hover:text-gray-700 transition-colors cursor-pointer drop-shadow-sm">Case Studies</li></Link>
+            <Link href="/#footer" onClick={() => setIsOpen(false)}><li className="text-white md:text-lg font-light hover:text-gray-700 transition-colors cursor-pointer drop-shadow-sm">Contact Me</li></Link>
           </ul>
           <div className="mt-auto pt-6 flex items-center gap-2">
             <a href="https://www.youtube.com/@Yuzusii" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-black/10 text-white rounded-full hover:bg-black/20 transition-colors focus:outline-none"><Youtube size={16} /></a>
@@ -99,7 +102,9 @@ const NavBar = () => {
             <span className="bg-[#ccff00] text-black text-[9px] px-1.5 py-0.5 rounded font-semibold uppercase tracking-wider">Watch Now</span>
           </div>
           <h2 className="text-2xl md:text-5xl font-medium mb-4 md:mb-6 leading-tight tracking-tight drop-shadow-md">Edited for<br />50+ Creators</h2>
-          <button className="bg-white text-black px-6 py-2.5 rounded-full font-medium hover:scale-105 transition-transform text-sm shadow-lg">View Projects</button>
+          <Link href="/#section-2" onClick={() => setIsOpen(false)}>
+            <button className="bg-white text-black px-6 py-2.5 rounded-full font-medium hover:scale-105 transition-transform text-sm shadow-lg">View Projects</button>
+          </Link>
 
           <div className="flex items-center justify-center mt-10 -space-x-3">
             <img src="https://i.pravatar.cc/100?img=11" className="w-12 h-12 rounded-full border-2 border-[#1a1a1a] z-30" alt="member" />

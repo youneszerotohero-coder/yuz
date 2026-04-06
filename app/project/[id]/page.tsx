@@ -13,7 +13,9 @@ const projectsData = [
     role: "Video Editor & Colorist",
     year: "2024",
     description: "A high-energy, fast-paced cinematic editing project showcasing dynamic motion graphics, intricate sound design, and aggressive color grading to match the brand's aesthetic. The project involved sorting through hours of raw footage to find the perfect narrative flow.",
-    tags: ["Premiere Pro", "After Effects", "DaVinci Resolve"]
+    tags: ["Premiere Pro", "After Effects", "DaVinci Resolve"],
+    link: "https://www.youtube.com/shorts/YCZowxyJKhg",
+    type: "video"
   },
   { 
     id: "1", 
@@ -23,7 +25,10 @@ const projectsData = [
     role: "VFX Artist",
     year: "2023",
     description: "Integrating 3D elements and complex compositing into live-action footage. This showcase pushed the boundaries of visual effects, seamlessly blending reality with digital art to create a captivating promotional piece.",
-    tags: ["Blender", "After Effects", "Nuke"]
+    tags: ["Blender", "After Effects", "Nuke"],
+    link: "https://www.youtube.com/watch?v=PJ2ctZbe5_Y&list=RDPJ2ctZbe5_Y&start_radio=1",
+    embedUrl: "https://www.youtube.com/embed/PJ2ctZbe5_Y?si=EjLWe_dWEz7ZJHdB",
+    type: "video"
   },
   { 
     id: "2", 
@@ -33,7 +38,9 @@ const projectsData = [
     role: "Motion Designer",
     year: "2024",
     description: "A beautifully animated title sequence combining archival footage with modern motion design techniques. The goal was to establish a somber yet inspiring tone before the documentary even began.",
-    tags: ["After Effects", "Illustrator", "Photoshop"]
+    tags: ["After Effects", "Illustrator", "Photoshop"],
+    link: "https://www.instagram.com/reel/DF81SsNoPJv/",
+    type: "video"
   },
   { 
     id: "3", 
@@ -43,7 +50,9 @@ const projectsData = [
     role: "Lead Editor",
     year: "2023",
     description: "An experimental music video heavily relying on mixed media, datamoshing, and rhythmically synchronized edits. The visual tempo was meticulously crafted to match the beat drops.",
-    tags: ["Premiere Pro", "Sapphire Plugins", "Film emulation"]
+    tags: ["Premiere Pro", "Sapphire Plugins", "Film emulation"],
+    link: "https://www.tiktok.com/@yuzusii/video/7476949182436297989",
+    type: "video"
   },
   { 
     id: "4", 
@@ -53,7 +62,8 @@ const projectsData = [
     role: "Sound Designer & Editor",
     year: "2024",
     description: "A sleek, minimalist commercial focusing on fluid motion and crisp, futuristic sound design. The auditory experience was designed from scratch to give the product a premium feel.",
-    tags: ["Audition", "Premiere Pro", "Figma"]
+    tags: ["Audition", "Premiere Pro", "Figma"],
+    type: "photography"
   },
   { 
     id: "5", 
@@ -63,14 +73,14 @@ const projectsData = [
     role: "Colorist",
     year: "2024",
     description: "Extensive color grading to bring out the sleek curves of the vehicle while maintaining a moody, cinematic atmosphere. We developed a custom LUT specifically for this campaign.",
-    tags: ["DaVinci Resolve", "Color Grading", "Cinematography"]
+    tags: ["DaVinci Resolve", "Color Grading", "Cinematography"],
+    type: "photography"
   },
 ];
 
-export default async function ProjectPage({ params }: { params: { id: string } }) {
-  // Retrieve the awaited params directly depending on Next.js version,
-  // but standard Next 14+ needs either standard parsing or direct access
-  const projectId = params.id;
+export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const projectId = resolvedParams.id;
   
   // Safe fallback if id not found
   const project = projectsData.find(p => p.id === projectId) || {
@@ -81,7 +91,10 @@ export default async function ProjectPage({ params }: { params: { id: string } }
     role: "Editor",
     year: "2024",
     description: "A creative endeavor exploring the boundaries of mixed media and digital editing.",
-    tags: ["Editing", "Design"]
+    tags: ["Editing", "Design"],
+    type: "video" as const,
+    link: "",
+    embedUrl: undefined
   };
 
   return (
@@ -144,18 +157,53 @@ export default async function ProjectPage({ params }: { params: { id: string } }
             {project.description}
           </p>
           
-          <div className="w-full aspect-video rounded-2xl overflow-hidden mt-8 relative group bg-neutral-900 border border-white/10">
-            <img 
-              src={project.url} 
-              alt={project.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
-              <button className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 shadow-2xl hover:scale-110 transition-transform cursor-pointer">
-                <Play className="ml-1" fill="currentColor" />
-              </button>
+          {project.embedUrl ? (
+            <div className="w-full aspect-video rounded-2xl overflow-hidden mt-8 relative bg-neutral-900 border border-white/10">
+              <iframe
+                className="w-full h-full"
+                src={project.embedUrl}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
             </div>
-          </div>
+          ) : (
+            <div className="w-full aspect-video rounded-2xl overflow-hidden mt-8 relative group bg-neutral-900 border border-white/10">
+              {project.link ? (
+                <Link href={project.link} target="_blank" className="w-full h-full block">
+                  <img 
+                    src={project.url} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {project.type !== "photography" && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
+                      <button className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 shadow-2xl hover:scale-110 transition-transform cursor-pointer pointer-events-none">
+                        <Play className="ml-1" fill="currentColor" />
+                      </button>
+                    </div>
+                  )}
+                </Link>
+              ) : (
+                <>
+                  <img 
+                    src={project.url} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {project.type !== "photography" && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
+                      <button className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 shadow-2xl hover:scale-110 transition-transform cursor-pointer">
+                        <Play className="ml-1" fill="currentColor" />
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Right Col - Metadata & Tools */}
@@ -181,11 +229,13 @@ export default async function ProjectPage({ params }: { params: { id: string } }
             </div>
           </div>
 
-          <div className="pt-6">
-            <button className="w-full py-4 rounded-xl bg-foreground text-background font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-              Live Preview <ExternalLink size={16} />
-            </button>
-          </div>
+          {project.link && (
+            <div className="pt-6">
+              <Link href={project.link} target="_blank" className="w-full py-4 rounded-xl bg-foreground text-background font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                Live Preview <ExternalLink size={16} />
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 

@@ -83,14 +83,14 @@ export default function TestimonialsSection() {
                     Learn why professionals trust our solutions to complete their customer journeys.
                 </p>
 
-                <button 
+                {/* <button 
                     ref={(el) => { contentRefs.current[3] = el as HTMLButtonElement; }}
                     className={`scroll-reveal ${visibleContent.has(3) ? 'visible' : ''} group bg-foreground text-background px-8 py-3.5 rounded-full font-medium flex items-center gap-2 hover:bg-foreground/90 transition-colors`}
                     style={{ animationDelay: '300ms' }}
                 >
                     Read Success Stories 
                     <span className="text-xl leading-none transition-transform group-hover:translate-x-1">&rarr;</span>
-                </button>
+                </button> */}
             </div>
 
             {/* Stats Row */}

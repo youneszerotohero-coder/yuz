@@ -21,20 +21,20 @@ function TestPics() {
                 <ImageCard src="/portrait2.png" alt="work1" />
             </div>
             <div className="hidden md:block">
-                <ImageCard src="/portrait3.png" alt="work1" mb />
-                <ImageCard src="/portrait4.png" alt="work1" />
+                <ImageCard src="/portrait11.png" alt="work1" mb />
+                <ImageCard src="/portrait9.png" alt="work1" />
             </div>
             <div className="hidden md:block mt-[5em]">
                 <ImageCard src="/portrait5.png" alt="work1" />
             </div>
             <div className="mt-[1em]">
-                <ImageCard src="/portrait6.png" alt="work1" />
+                <ImageCard src="/portrait10.png" alt="work1" />
             </div>
             <div className="mt-[3em]">
                 <ImageCard src="/portrait7.png" alt="work1" />
             </div>
             <div className="mt-[1em]">
-                <ImageCard src="/portrait8.png" alt="work1" />
+                <ImageCard src="/portrait2.png" alt="work1" />
             </div>
             <div className="hidden md:block mt-[5em]">
                 <ImageCard src="/portrait9.png" alt="work1" />
@@ -44,8 +44,8 @@ function TestPics() {
                 <ImageCard src="/portrait11.png" alt="work1" />
             </div>
             <div className="hidden md:block mt-[4em]">
-                <ImageCard src="/portrait12.png" alt="work1" mb />
-                <ImageCard src="/portrait8.png" alt="work1" />
+                <ImageCard src="/portrait1.png" alt="work1" mb />
+                <ImageCard src="/portrait2.png" alt="work1" />
             </div>
         </div>
     );

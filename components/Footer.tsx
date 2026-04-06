@@ -15,7 +15,7 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white pt-16 px-6 md:px-12 w-full min-h-[75vh] relative overflow-hidden flex flex-col items-center justify-between">
+    <footer id="footer" className="bg-black text-white pt-16 px-6 md:px-12 w-full min-h-[75vh] relative overflow-hidden flex flex-col items-center justify-between">
       <div className="w-full max-w-7xl relative z-10 flex flex-col h-full flex-grow">
         
         {/* Main Header Section */}
