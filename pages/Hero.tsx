@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import MotionCard from "@/components/MotionCard"
 import SplitText from "@/components/SplitText"
 import { Button } from "@/components/ui/button";
@@ -68,12 +69,15 @@ const Hero = () => {
           I am Yuzusii - a mixed-media specialist based out of Algeria.
         </h3>
         <Button
+          asChild
           className='rounded-full hover:scale-110 transition-all duration-300 ease-in-out px-4 md:px-6'
           style={{ animation: 'fade-in-up 3.8s ease-out forwards' }}
         >
-          <img src="/yuz.jpg" alt="yuz"
-            className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover" />
-          Contact me
+          <Link href="/#footer">
+            <img src="/yuz.jpg" alt="yuz"
+              className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover" />
+            Contact me
+          </Link>
         </Button>
       </div>
     </section>
