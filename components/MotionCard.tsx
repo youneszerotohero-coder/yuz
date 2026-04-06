@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 
 interface MotionCardProps {
@@ -121,18 +122,23 @@ const MotionCard = ({ index, total, url }: MotionCardProps) => {
           }),
       } as React.CSSProperties & Record<string, any>}
     >
-      <div 
+      <div
         className='w-full h-full rounded-xl shadow-lg transition-transform duration-300 hover:scale-[1.15] group relative overflow-hidden'
         style={{
-          backgroundImage: `url(${url})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
           transformOrigin: 'bottom center',
         }}
       >
+        <Image 
+          src={url} 
+          alt={`Project ${index}`} 
+          fill 
+          sizes="(max-width: 768px) 160px, 192px"
+          priority
+          className="object-cover pointer-events-none"
+        />
         {/* Hover Gradient Overlay */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-        
+
         {/* See More Button */}
         <Link href={`/project/${index}`} className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-10 block">
           <div className="bg-foreground hover:bg-foreground/90 text-background text-[10px] md:text-xs px-2.5 py-1 md:px-3 md:py-1.5 rounded-full flex items-center gap-1 font-medium shadow-xl">
