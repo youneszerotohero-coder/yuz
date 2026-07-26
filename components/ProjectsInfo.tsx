@@ -27,7 +27,7 @@ export default function ProjectsInfo() {
     }, []);
 
     return (
-        <div ref={sectionRef} className="w-full md:w-1/2 flex flex-col gap-4 md:gap-6 px-6 md:pl-20 z-20 items-center md:items-start text-center md:text-left">
+        <div ref={sectionRef} className="w-full md:w-1/2 flex flex-col gap-4 md:gap-6 px-6 md:pl-20 z-20 items-center md:items-start text-center md:text-left backdrop-blur-xl bg-background/80 py-8 rounded-3xl mx-4 md:mx-0 md:rounded-none md:bg-transparent md:backdrop-blur-none md:py-0">
             <SplitText
                 text="FEATURED WORKS"
                 className="text-4xl md:text-5xl font-bold tracking-tighter"
@@ -49,13 +49,13 @@ export default function ProjectsInfo() {
             </p>
 
             <div
-                className="flex flex-col sm:flex-row gap-3 md:gap-4 opacity-0 w-full sm:w-auto mt-2 md:mt-0"
+                className="flex flex-col sm:flex-row gap-2 md:gap-4 opacity-0 w-full sm:w-auto mt-1 md:mt-0"
                 style={isVisible ? { animation: 'ani 1s ease-out 1.2s forwards' } : {}}
             >
-                <Button className="rounded-full hover:scale-105 transition-all duration-300 ease-in-out px-6 md:px-8 py-5 md:py-6 text-base md:text-lg w-full sm:w-auto">
+                <Button className="rounded-full hover:scale-105 transition-all duration-300 ease-in-out px-6 md:px-8 py-3 md:py-6 text-sm md:text-lg w-full sm:w-auto">
                     Explore Projects
                 </Button>
-                <Button variant="outline" className="rounded-full hover:scale-105 transition-all duration-300 ease-in-out px-6 md:px-8 py-5 md:py-6 text-base md:text-lg w-full sm:w-auto">
+                <Button variant="outline" className="rounded-full hover:scale-105 transition-all duration-300 ease-in-out px-6 md:px-8 py-3 md:py-6 text-sm md:text-lg w-full sm:w-auto">
                     About Process
                 </Button>
             </div>

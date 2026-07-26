@@ -1,20 +1,21 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import { useLoader } from './LoaderContext';
 
 interface MotionCardProps {
   index: number;
   total: number;
   url: string;
+  isLoaded?: boolean;
 }
 
-const MotionCard = ({ index, total, url }: MotionCardProps) => {
+const MotionCard = forwardRef<HTMLDivElement, MotionCardProps>(({ index, total, url, isLoaded: propIsLoaded }, ref) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isLargeMobile, setIsLargeMobile] = useState(false);
-  const [fanDone, setFanDone] = useState(false);
-  const [unfanProgress, setUnfanProgress] = useState(0);
-  const [isPastHero, setIsPastHero] = useState(false);
+  const contextLoader = useLoader();
+  const isLoaded = propIsLoaded ?? contextLoader.isLoaded;
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,92 +34,21 @@ const MotionCard = ({ index, total, url }: MotionCardProps) => {
   const translateX = offset * (isMobile ? (isLargeMobile ? 85 : 65) : 110);
   const translateY = Math.abs(offset) * (isMobile ? 2 : 1);
 
-  // Wait for card-fan animation to finish (2.5s delay + 0.8s duration)
-  useEffect(() => {
-    const timer = setTimeout(() => setFanDone(true), 3300);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Listen to scroll and compute unfan progress
-  useEffect(() => {
-    if (!fanDone) return;
-
-    const handleScroll = () => {
-      const viewportHeight = window.innerHeight;
-      const scroll = window.scrollY;
-
-      setUnfanProgress(Math.max(0, Math.min(1, scroll / viewportHeight)));
-      setIsPastHero(scroll >= viewportHeight);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [fanDone]);
-
-  // Interpolated values during scroll
-  const currentRotate = rotate * (1 - unfanProgress);
-  const currentTX = translateX * (1 - unfanProgress);
-  const currentTY = translateY * (1 - unfanProgress);
-
-  // --- Desktop: diagonal layout ---
-  const diagMid = -1;
-  const diagOffset = index - diagMid;
-  const diagRotate = diagOffset * 1;
-  const diagTX = diagOffset * 100;
-  const diagTY = diagOffset * 30;
-
-  // --- Mobile: 2-column grid layout ---
-  const cols = 2;
-  const cardSize = isLargeMobile ? 160 : 120;
-  const gap = isLargeMobile ? 10 : 14;
-  const col = index % cols;
-  const row = Math.floor(index / cols);
-  const gridCenterCol = (cols - 1) / 2; // 0.5
-  const gridCenterRow = (Math.ceil(total / cols) - 1) / 2; // 1
-  const gridTX = (col - gridCenterCol) * (cardSize + gap);
-  // Push the grid down so it forms below the text/buttons
-  const gridVerticalOffset = isLargeMobile ? 170 : 150;
-  const gridTY = (row - gridCenterRow) * (cardSize + gap) + gridVerticalOffset;
-  const gridRotate = 0;
-
-  // Choose target based on mobile vs desktop
-  let targetRotate: number, targetTX: number, targetTY: number;
-  if (isMobile) {
-    targetRotate = gridRotate;
-    targetTX = gridTX;
-    targetTY = gridTY;
-  } else {
-    targetRotate = diagRotate;
-    targetTX = diagTX;
-    targetTY = diagTY;
-  }
-
-  // Final values
-  const finalRotate = isPastHero ? targetRotate : currentRotate;
-  const finalTX = isPastHero ? targetTX : currentTX;
-  const finalTY = isPastHero ? targetTY : currentTY;
-
-  const transitionStyle = isPastHero
-    ? 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)'
-    : 'none';
-
   return (
     <div
+      ref={ref}
       className='absolute w-[7.5em] h-[7.5em] min-[390px]:w-[10em] min-[390px]:h-[10em] md:w-[12em] md:h-[12em] cursor-pointer'
+      data-fan-rotate={rotate}
+      data-fan-tx={translateX}
+      data-fan-ty={translateY}
+      data-offset={offset}
+      data-index={index}
       style={{
         zIndex: total - Math.abs(offset),
-        transition: fanDone ? transitionStyle : 'all 0.3s ease-in-out',
-        ...(fanDone
-          ? {
-            transform: `rotate(${finalRotate}deg) translateX(${finalTX}px) translateY(${finalTY}px)`,
-          }
-          : {
-            animation: 'card-fan 0.8s ease-out 2.5s forwards',
-            '--fan-rotate': `${rotate}deg`,
-            '--fan-tx': `${translateX}px`,
-            '--fan-ty': `${translateY}px`,
-          }),
+        animation: isLoaded ? 'card-fan 0.8s ease-out 2.5s forwards' : 'none',
+        '--fan-rotate': `${rotate}deg`,
+        '--fan-tx': `${translateX}px`,
+        '--fan-ty': `${translateY}px`,
       } as React.CSSProperties & Record<string, any>}
     >
       <Link
@@ -143,6 +73,8 @@ const MotionCard = ({ index, total, url }: MotionCardProps) => {
       </Link>
     </div>
   );
-};
+});
+
+MotionCard.displayName = 'MotionCard';
 
 export default MotionCard;

@@ -14,16 +14,18 @@ export default function Home() {
       </div>
       <Hero />
       <section id="section-2" className="w-full md:min-h-screen relative flex items-start 
-      min-h-[100vh] md:items-center">
+      min-h-[160vh] md:items-center">
         <ProjectsInfo />
       </section>
-      <section id="section-3" className="w-full relative">
+      <section id="section-3" className="w-full relative z-10 bg-background">
         <SkillsSection />
       </section>
-      <section id="section-4" className="w-full relative">
+      <section id="section-4" className="w-full relative z-10 bg-background">
         <TestimonialsSection />
       </section>
-      <Footer />
+      <div className="relative z-10 bg-background">
+        <Footer />
+      </div>
     </>
   );
 }
